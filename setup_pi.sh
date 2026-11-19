@@ -9,7 +9,8 @@ source ~/.bashrc
 nvm install 22
 nvm use 22
 cd ~
-git clone https://github.com/ragsnas/ponytyler-rennleitung.git
+# Cloned into ~/ponytyler-rennleitung: the scripts and the backend expect that folder name.
+git clone https://github.com/bambozya/ponytyler-rennleitung-react.git ponytyler-rennleitung
 # The UI takes its API types from the backend, so the backend's Prisma client is generated first.
 cd ~/ponytyler-rennleitung/be
 npm i
