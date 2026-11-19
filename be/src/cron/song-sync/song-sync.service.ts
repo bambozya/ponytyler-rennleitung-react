@@ -2,7 +2,7 @@ import { Injectable, Logger } from "@nestjs/common";
 import { Cron, CronExpression } from "@nestjs/schedule";
 import { HttpService } from "@nestjs/axios";
 import { Origin, SongService } from "../../prisma-api/song.service";
-import { Song } from "@prisma/client";
+import { Song } from "../../generated/prisma/client";
 import { firstValueFrom } from "rxjs";
 
 @Injectable()

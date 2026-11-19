@@ -1,5 +1,5 @@
 import { PrismaService } from "./prisma.service";
-import { Shift, Prisma } from "@prisma/client";
+import { Shift, Prisma } from "../generated/prisma/client";
 export declare class ShiftsService {
     private prisma;
     constructor(prisma: PrismaService);
@@ -19,8 +19,8 @@ export declare class ShiftsService {
     deleteShift(where: Prisma.ShiftWhereUniqueInput): Promise<Shift>;
     shiftsForShow(showId: string): Promise<{
         id: number;
-        showId: number;
         duration: number | null;
+        showId: number;
         order: number;
         shiftStarted: Date | null;
         shiftFinished: Date | null;

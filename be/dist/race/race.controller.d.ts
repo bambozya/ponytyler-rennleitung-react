@@ -1,6 +1,6 @@
 import { RaceService } from "src/prisma-api/race.service";
 import { ShowService } from "src/prisma-api/show.service";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../generated/prisma/client";
 export declare enum RaceState {
     WAITING_FOR_OPPONENT = "WAITING_FOR_OPPONENT",
     WAITING_TO_RACE = "WAITING_TO_RACE",

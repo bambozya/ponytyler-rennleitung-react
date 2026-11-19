@@ -9,12 +9,12 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
-import { createSong, getSongs, Origin, songTitle, updateSong, type Song } from "../../api/song";
+import { createSong, getSongs, Origin, songTitle, updateSong, type NewSong, type Song } from "../../api/song";
 import { ButtonList } from "../../ui/ButtonList";
 import { useSnackbar } from "../../ui/Snackbar";
 
 /** File names look like "Artist - Title [PTHQ].mp4". */
-function songFromFileName(fileName: string): Song {
+function songFromFileName(fileName: string): NewSong {
   const artist = fileName.substring(0, fileName.indexOf("-")).trim();
   const name = fileName
     .substring(fileName.indexOf("-") + 1, fileName.lastIndexOf("."))

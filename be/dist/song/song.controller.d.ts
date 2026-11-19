@@ -1,5 +1,5 @@
 import { SongService } from "../prisma-api/song.service";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../generated/prisma/client";
 export declare class SongController {
     private readonly songService;
     constructor(songService: SongService);

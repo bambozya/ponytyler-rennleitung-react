@@ -26,7 +26,14 @@ export function CreateRace() {
     const complete = Boolean(values.person1 && values.person2 && values.song1 && values.song2);
     const raceState = complete ? RaceState.WAITING_TO_RACE : RaceState.WAITING_FOR_OPPONENT;
     try {
-      await createRace({ ...values, raceState, showId });
+      await createRace({
+        showId: Number(showId),
+        person1: values.person1,
+        song1Id: values.song1?.id ?? null,
+        person2: values.person2,
+        song2Id: values.song2?.id ?? null,
+        raceState,
+      });
       await snackbar.success(
         complete
           ? `Successfully Created Race between ${values.person1} and ${values.person2}`

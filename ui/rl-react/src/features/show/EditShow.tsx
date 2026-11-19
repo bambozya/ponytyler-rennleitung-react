@@ -42,7 +42,7 @@ export function EditShow() {
       await updateShow({
         ...show,
         name: values.name,
-        date: combineDateAndTime(values.date, values.time),
+        date: combineDateAndTime(values.date, values.time).toISOString(),
         duration: Number(values.duration) || 0,
         active: true,
         finished: show.finished || false,

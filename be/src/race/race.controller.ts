@@ -10,7 +10,7 @@ import {
 } from "@nestjs/common";
 import { RaceService } from "src/prisma-api/race.service";
 import { ShowService } from "src/prisma-api/show.service";
-import { Prisma, Race } from "@prisma/client";
+import { Prisma, Race } from "../generated/prisma/client";
 import { combineLatest, map } from "rxjs";
 
 export enum RaceState {

@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ShowController = void 0;
 const common_1 = require("@nestjs/common");
 const show_service_1 = require("../prisma-api/show.service");
-const client_1 = require("@prisma/client");
+const client_1 = require("../generated/prisma/client");
 const race_service_1 = require("../prisma-api/race.service");
 let ShowController = class ShowController {
     constructor(showService, raceService) {

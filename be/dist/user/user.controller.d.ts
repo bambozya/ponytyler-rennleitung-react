@@ -1,5 +1,5 @@
 import { UserService } from "../prisma-api/user.service";
-import { Prisma, User } from "@prisma/client";
+import { Prisma, User } from "../generated/prisma/client";
 export declare class UserController {
     private readonly userService;
     constructor(userService: UserService);

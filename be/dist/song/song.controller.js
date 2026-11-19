@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SongController = void 0;
 const common_1 = require("@nestjs/common");
 const song_service_1 = require("../prisma-api/song.service");
-const client_1 = require("@prisma/client");
+const client_1 = require("../generated/prisma/client");
 let SongController = class SongController {
     constructor(songService) {
         this.songService = songService;

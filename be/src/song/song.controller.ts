@@ -8,7 +8,7 @@ import {
   Post,
 } from "@nestjs/common";
 import { SongService } from "../prisma-api/song.service";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../generated/prisma/client";
 
 @Controller("api/song")
 export class SongController {

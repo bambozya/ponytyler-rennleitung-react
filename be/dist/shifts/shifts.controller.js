@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ShiftsController = void 0;
 const common_1 = require("@nestjs/common");
 const shifts_service_1 = require("../prisma-api/shifts.service");
-const client_1 = require("@prisma/client");
+const client_1 = require("../generated/prisma/client");
 let ShiftsController = class ShiftsController {
     constructor(shiftsService) {
         this.shiftsService = shiftsService;

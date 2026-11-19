@@ -9,7 +9,7 @@ import {
   Delete, Query,
 } from "@nestjs/common";
 import { ShiftsService } from "../prisma-api/shifts.service";
-import { Shift, Prisma } from "@prisma/client";
+import { Shift, Prisma } from "../generated/prisma/client";
 import { RaceState } from "../race/race.controller";
 
 @Controller("api/shifts")

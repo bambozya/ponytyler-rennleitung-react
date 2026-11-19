@@ -1,5 +1,5 @@
 import { ShowService } from "../prisma-api/show.service";
-import { Show, Prisma } from "@prisma/client";
+import { Show, Prisma } from "../generated/prisma/client";
 import { RaceService } from "../prisma-api/race.service";
 export declare class ShowController {
     private readonly showService;

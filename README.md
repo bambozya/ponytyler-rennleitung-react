@@ -14,9 +14,15 @@ First, start the Frontend in `ui/rl-react` like this:
 
 ```npm run start```
 
-Then, if you haven't done yet, create the database like this:
+Then, if you haven't done yet, create the database and the Prisma client in `be` like this:
 
-```npx prisma generate```
+```
+npx prisma migrate deploy
+npx prisma generate --sql
+```
+
+The frontend takes its API types from `be/src/api-types.ts`, so the generate step is also needed
+before `npm run build` or `npm run typecheck` in `ui/rl-react`.
 
 Then, start the Backend in `be` like this:
 

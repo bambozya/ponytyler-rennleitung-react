@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "./prisma.service";
-import { Prisma, Song } from "@prisma/client";
+import { Prisma, Song } from "../generated/prisma/client";
 
 export enum Origin {
   LEGACY = "LEGACY",

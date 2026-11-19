@@ -16,7 +16,7 @@ exports.RaceController = exports.RaceState = void 0;
 const common_1 = require("@nestjs/common");
 const race_service_1 = require("../prisma-api/race.service");
 const show_service_1 = require("../prisma-api/show.service");
-const client_1 = require("@prisma/client");
+const client_1 = require("../generated/prisma/client");
 const rxjs_1 = require("rxjs");
 var RaceState;
 (function (RaceState) {

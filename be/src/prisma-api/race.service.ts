@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "./prisma.service";
-import { Prisma, Race } from "@prisma/client";
+import { Prisma, Race } from "../generated/prisma/client";
 import { RaceState } from "../race/race.controller";
 
 @Injectable()

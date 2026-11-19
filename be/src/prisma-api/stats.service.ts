@@ -1,5 +1,5 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { mostPlayedSongs, mostWishedSongs, neverWishedSongs, whichBikeWonMost } from "@prisma/client/sql";
+import { mostPlayedSongs, mostWishedSongs, neverWishedSongs, whichBikeWonMost } from "../generated/prisma/sql";
 import { PrismaService } from "./prisma.service";
 
 @Injectable()

@@ -12,7 +12,7 @@ var StatsService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StatsService = void 0;
 const common_1 = require("@nestjs/common");
-const sql_1 = require("@prisma/client/sql");
+const sql_1 = require("../generated/prisma/sql");
 const prisma_service_1 = require("./prisma.service");
 let StatsService = StatsService_1 = class StatsService {
     constructor(prisma) {

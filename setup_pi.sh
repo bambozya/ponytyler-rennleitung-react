@@ -10,6 +10,11 @@ nvm install 22
 nvm use 22
 cd ~
 git clone https://github.com/ragsnas/ponytyler-rennleitung.git
+# The UI takes its API types from the backend, so the backend's Prisma client is generated first.
+cd ~/ponytyler-rennleitung/be
+npm i
+npx prisma migrate deploy
+npx prisma generate --sql
 cd ~/ponytyler-rennleitung/ui/rl-react
 npm ci
 npm run build

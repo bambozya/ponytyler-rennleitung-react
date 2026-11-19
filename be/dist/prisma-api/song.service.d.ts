@@ -1,5 +1,5 @@
 import { PrismaService } from "./prisma.service";
-import { Prisma, Song } from "@prisma/client";
+import { Prisma, Song } from "../generated/prisma/client";
 export declare enum Origin {
     LEGACY = "LEGACY",
     FROM_DIRECT_INPUT = "FROM_DIRECT_INPUT",

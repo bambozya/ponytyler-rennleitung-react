@@ -2,16 +2,9 @@ import { http } from "./http";
 import { averageRacesPerHour, getAllRacesForShow, RaceState } from "./race";
 import { getShow } from "./show";
 
-export interface StatSong {
-  artist: string;
-  name: string;
-  totalCount?: number;
-}
+import type { StatSong, WhichBikeWonMost } from "./types";
 
-export interface WhichBikeWonMost {
-  timesWon: number;
-  bikeWon: number;
-}
+export type { StatSong, WhichBikeWonMost };
 
 /** True when the list holds more races than fit into the show's duration, going by past shows. */
 export async function isListFull(showId: string | number): Promise<boolean> {
@@ -28,7 +21,7 @@ export async function isListFull(showId: string | number): Promise<boolean> {
   );
   // Without finished shows there is no average to compare against.
   if (!average) return false;
-  return countedRaces.length - 2 > Math.round((show.duration / 60) * average);
+  return countedRaces.length - 2 > Math.round(((show.duration ?? 0) / 60) * average);
 }
 
 export const mostPlayedSongs = () => http.get<StatSong[]>("api/statistics/most-played-songs");

@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const user_service_1 = require("../prisma-api/user.service");
-const client_1 = require("@prisma/client");
+const client_1 = require("../generated/prisma/client");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;

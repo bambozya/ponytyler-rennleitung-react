@@ -1,5 +1,5 @@
 import { PrismaService } from "./prisma.service";
-import { Prisma, Race } from "@prisma/client";
+import { Prisma, Race } from "../generated/prisma/client";
 export declare class RaceService {
     private prisma;
     constructor(prisma: PrismaService);

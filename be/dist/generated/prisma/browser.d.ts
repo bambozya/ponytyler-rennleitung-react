@@ -1,0 +1,10 @@
+import * as Prisma from './internal/prismaNamespaceBrowser';
+export { Prisma };
+export * as $Enums from './enums';
+export * from './enums';
+export type Show = Prisma.ShowModel;
+export type Shift = Prisma.ShiftModel;
+export type ShiftRole = Prisma.ShiftRoleModel;
+export type Song = Prisma.SongModel;
+export type Race = Prisma.RaceModel;
+export type User = Prisma.UserModel;
