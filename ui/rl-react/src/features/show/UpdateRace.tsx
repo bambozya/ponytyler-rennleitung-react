@@ -14,6 +14,7 @@ export function UpdateRace() {
   const show = useLoad(() => getShow(showId), [showId]);
   const [race, setRace] = useState<Race | undefined>(undefined);
   const [values, setValues] = useState<RaceFormValues>(emptyRaceForm);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -37,16 +38,19 @@ export function UpdateRace() {
 
   const save = async () => {
     if (!race) return;
+    setSaving(true);
     try {
       await updateRace({
         ...race,
         ...values,
-        song1Id: values.song1?.id || undefined,
-        song2Id: values.song2?.id || undefined,
+        // null removes the song from the race
+        song1Id: values.song1?.id ?? null,
+        song2Id: values.song2?.id ?? null,
       });
       await snackbar.success("Successfully Updated the Race", 200);
       navigate(`/show/${showId}`);
     } catch (error) {
+      setSaving(false);
       snackbar.error("Error during update", error);
     }
   };
@@ -55,7 +59,7 @@ export function UpdateRace() {
     <div>
       {show.data && <h2>Updating Race for Show: {show.data.name}</h2>}
       <RaceFormFields showId={showId} values={values} onChange={setValues} />
-      <Button variant="contained" onClick={save} disabled={!race}>
+      <Button variant="contained" onClick={save} disabled={!race || saving}>
         Speichern
       </Button>
     </div>

@@ -106,6 +106,7 @@ export declare class RaceService {
         song2Id: number | null;
         bikeWon: number;
     }]>;
+    private songRelation;
     private calculateRaceState;
     deleteRace(where: Prisma.RaceWhereUniqueInput): Promise<Race>;
 }

@@ -6,6 +6,7 @@
   Body,
   Patch,
   NotFoundException,
+  ConflictException,
   Delete,
 } from "@nestjs/common";
 import { ShowService } from "../prisma-api/show.service";
@@ -38,7 +39,7 @@ export class ShowController {
       where: { active: true },
     });
     if (shows.length > 0) {
-      return shows.pop();
+      return shows[0];
     } else {
       throw new NotFoundException("No current shows");
     }
@@ -67,10 +68,14 @@ export class ShowController {
 
   @Post("")
   async createShow(@Body() showData: Prisma.ShowCreateInput): Promise<Show> {
-    return this.showService.createShow({
-      ...showData,
-      date: showData.date || new Date(),
-    });
+    try {
+      return await this.showService.createShow({
+        ...showData,
+        date: showData.date || new Date(),
+      });
+    } catch (error) {
+      throw this.nameConflictOr(error, showData.name);
+    }
   }
 
   @Patch("repair-races-for/:id")
@@ -85,10 +90,27 @@ export class ShowController {
     @Param("id") id: string,
     @Body() showData: Prisma.ShowUpdateInput,
   ): Promise<Show> {
-    return this.showService.updateShow({
-      data: showData,
-      where: { id: Number(id) },
-    });
+    try {
+      return await this.showService.updateShow({
+        data: showData,
+        where: { id: Number(id) },
+      });
+    } catch (error) {
+      throw this.nameConflictOr(error, showData.name);
+    }
+  }
+
+  /** Show names are unique; turn the database error into a readable 409. */
+  private nameConflictOr(error: unknown, name: unknown) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2002"
+    ) {
+      return new ConflictException(
+        `A show named "${name}" already exists. Please choose a different name.`,
+      );
+    }
+    return error;
   }
 
   @Delete(":id")

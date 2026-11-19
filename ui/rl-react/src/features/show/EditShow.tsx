@@ -12,6 +12,7 @@ export function EditShow() {
   const snackbar = useSnackbar();
   const [show, setShow] = useState<Show | undefined>(undefined);
   const [values, setValues] = useState<ShowFormValues>({ name: "", date: "", time: "20:00", duration: "120" });
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -36,6 +37,7 @@ export function EditShow() {
   if (!show) return null;
 
   const save = async () => {
+    setSaving(true);
     try {
       await updateShow({
         ...show,
@@ -48,6 +50,7 @@ export function EditShow() {
       await snackbar.success(`Successfully Updated Show ${values.name}`, 200);
       navigate(`/show/${showId}`);
     } catch (error) {
+      setSaving(false);
       snackbar.error("Error during Update Of Show", error);
     }
   };
@@ -58,7 +61,7 @@ export function EditShow() {
         Update of Show #{showId} ({show.name})
       </h2>
       <ShowFormFields values={values} onChange={setValues} />
-      <Button variant="contained" disabled={!isShowFormValid(values)} onClick={save}>
+      <Button variant="contained" disabled={saving || !isShowFormValid(values)} onClick={save}>
         Speichern
       </Button>
     </div>

@@ -36,7 +36,7 @@ let ShowController = class ShowController {
             where: { active: true },
         });
         if (shows.length > 0) {
-            return shows.pop();
+            return shows[0];
         }
         else {
             throw new common_1.NotFoundException("No current shows");
@@ -58,19 +58,36 @@ let ShowController = class ShowController {
         return this.showService.show({ id: Number(id) });
     }
     async createShow(showData) {
-        return this.showService.createShow({
-            ...showData,
-            date: showData.date || new Date(),
-        });
+        try {
+            return await this.showService.createShow({
+                ...showData,
+                date: showData.date || new Date(),
+            });
+        }
+        catch (error) {
+            throw this.nameConflictOr(error, showData.name);
+        }
     }
     repairRacesFor(id) {
         return this.raceService.repairOrder(id);
     }
     async updateShow(id, showData) {
-        return this.showService.updateShow({
-            data: showData,
-            where: { id: Number(id) },
-        });
+        try {
+            return await this.showService.updateShow({
+                data: showData,
+                where: { id: Number(id) },
+            });
+        }
+        catch (error) {
+            throw this.nameConflictOr(error, showData.name);
+        }
+    }
+    nameConflictOr(error, name) {
+        if (error instanceof client_1.Prisma.PrismaClientKnownRequestError &&
+            error.code === "P2002") {
+            return new common_1.ConflictException(`A show named "${name}" already exists. Please choose a different name.`);
+        }
+        return error;
     }
     async deleteShowById(id) {
         return this.showService.deleteShowWithRacesAndShifts(id);

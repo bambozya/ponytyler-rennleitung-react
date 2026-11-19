@@ -14,5 +14,6 @@ export declare class ShowController {
     createShow(showData: Prisma.ShowCreateInput): Promise<Show>;
     repairRacesFor(id: string): Promise<any[]>;
     updateShow(id: string, showData: Prisma.ShowUpdateInput): Promise<Show>;
+    private nameConflictOr;
     deleteShowById(id: string): Promise<any>;
 }

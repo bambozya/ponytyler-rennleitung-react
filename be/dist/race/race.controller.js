@@ -71,10 +71,13 @@ let RaceController = class RaceController {
         ]).pipe((0, rxjs_1.map)(([races, shows]) => {
             const numberOfRaces = races
                 .map((race) => (race.bikeWon === 3 ? 2 : 1))
-                .reduce((accumulator, currentValue) => accumulator + currentValue) || 0;
+                .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
             const totalTime = shows
-                .map((show) => show.duration)
-                .reduce((accumulator, currentValue) => accumulator + currentValue) || 0;
+                .map((show) => show.duration || 0)
+                .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+            if (totalTime === 0) {
+                return 0;
+            }
             return Math.round(numberOfRaces / (totalTime / 60));
         }));
     }

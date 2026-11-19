@@ -31,6 +31,19 @@ const colors: Record<Variant, { background?: string; action: string; actionBackg
   error: { background: "#a00000", action: "#fff", actionBackground: "#4f0606" },
 };
 
+/** Prefers the backend's own message over a dump of the whole error object. */
+function describeCause(cause: unknown): string {
+  if (typeof cause === "string") return cause;
+  if (cause && typeof cause === "object") {
+    const { status, error } = cause as { status?: number; error?: unknown };
+    const message = (error as { message?: unknown } | null)?.message;
+    if (Array.isArray(message)) return message.join(", ");
+    if (typeof message === "string" && message !== "Internal server error") return message;
+    if (status === 0) return "The backend could not be reached.";
+  }
+  return JSON.stringify(cause);
+}
+
 const SnackbarContext = createContext<SnackbarApi | null>(null);
 
 export function SnackbarProvider({ children }: { children: ReactNode }) {
@@ -60,7 +73,7 @@ export function SnackbarProvider({ children }: { children: ReactNode }) {
       open,
       success: (message, duration = 250) => open(message, { variant: "success", duration }),
       error: (message, cause, duration = 10000) =>
-        open(cause === undefined ? message : `${message}: ${JSON.stringify(cause)}`, {
+        open(cause === undefined ? message : `${message}: ${describeCause(cause)}`, {
           variant: "error",
           duration,
         }),

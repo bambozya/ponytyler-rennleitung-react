@@ -29,6 +29,9 @@ export class RaceService {
       orderBy: { date: "desc" },
       take: 1,
     });
+    if (!show) {
+      return null;
+    }
     return this.prisma.race.findFirst({
       where: {
         showId: Number(show.id),
@@ -45,6 +48,9 @@ export class RaceService {
       orderBy: { date: "desc" },
       take: 1,
     });
+    if (!show) {
+      return [];
+    }
     return this.prisma.race.findMany({
       where: {
         showId: Number(show.id),
@@ -82,9 +88,9 @@ export class RaceService {
       data: {
         raceState: this.calculateRaceState(data),
         person1: data.person1,
-        song1Id: Number(data.song1Id),
+        song1Id: data.song1Id ? Number(data.song1Id) : null,
         person2: data.person2,
-        song2Id: Number(data.song2Id),
+        song2Id: data.song2Id ? Number(data.song2Id) : null,
         showId: Number(data.showId),
         createdAt: data.createdAt || new Date(),
         orderNumber:
@@ -103,13 +109,9 @@ export class RaceService {
     return this.prisma.race.update({
       data: {
         person1: data.person1,
-        song1: data.song1Id
-          ? { connect: { id: Number(data.song1Id) } }
-          : undefined,
+        song1: this.songRelation(data.song1Id),
         person2: data.person2,
-        song2: data.song2Id
-          ? { connect: { id: Number(data.song2Id) } }
-          : undefined,
+        song2: this.songRelation(data.song2Id),
         createdAt: data.createdAt,
         orderNumber: data.orderNumber,
         raced: data.raced,
@@ -184,6 +186,14 @@ export class RaceService {
 
       return this.prisma.$transaction([updateRaceToSwitchWith, updateRaceToMove]);
     }
+  }
+
+  /** A song id connects that song, null removes the song, undefined leaves it as it is. */
+  private songRelation(songId: Prisma.RaceUncheckedUpdateInput["song1Id"]) {
+    if (songId === null) {
+      return { disconnect: true };
+    }
+    return songId ? { connect: { id: Number(songId) } } : undefined;
   }
 
   private calculateRaceState(data: Prisma.RaceUncheckedUpdateInput): RaceState {

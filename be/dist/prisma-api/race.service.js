@@ -34,6 +34,9 @@ let RaceService = class RaceService {
             orderBy: { date: "desc" },
             take: 1,
         });
+        if (!show) {
+            return null;
+        }
         return this.prisma.race.findFirst({
             where: {
                 showId: Number(show.id),
@@ -49,6 +52,9 @@ let RaceService = class RaceService {
             orderBy: { date: "desc" },
             take: 1,
         });
+        if (!show) {
+            return [];
+        }
         return this.prisma.race.findMany({
             where: {
                 showId: Number(show.id),
@@ -78,9 +84,9 @@ let RaceService = class RaceService {
             data: {
                 raceState: this.calculateRaceState(data),
                 person1: data.person1,
-                song1Id: Number(data.song1Id),
+                song1Id: data.song1Id ? Number(data.song1Id) : null,
                 person2: data.person2,
-                song2Id: Number(data.song2Id),
+                song2Id: data.song2Id ? Number(data.song2Id) : null,
                 showId: Number(data.showId),
                 createdAt: data.createdAt || new Date(),
                 orderNumber: highestOrderNumberRace.length > 0
@@ -94,13 +100,9 @@ let RaceService = class RaceService {
         return this.prisma.race.update({
             data: {
                 person1: data.person1,
-                song1: data.song1Id
-                    ? { connect: { id: Number(data.song1Id) } }
-                    : undefined,
+                song1: this.songRelation(data.song1Id),
                 person2: data.person2,
-                song2: data.song2Id
-                    ? { connect: { id: Number(data.song2Id) } }
-                    : undefined,
+                song2: this.songRelation(data.song2Id),
                 createdAt: data.createdAt,
                 orderNumber: data.orderNumber,
                 raced: data.raced,
@@ -168,6 +170,12 @@ let RaceService = class RaceService {
             });
             return this.prisma.$transaction([updateRaceToSwitchWith, updateRaceToMove]);
         }
+    }
+    songRelation(songId) {
+        if (songId === null) {
+            return { disconnect: true };
+        }
+        return songId ? { connect: { id: Number(songId) } } : undefined;
     }
     calculateRaceState(data) {
         if (data.raceState === race_controller_1.RaceState.WAITING_FOR_OPPONENT &&

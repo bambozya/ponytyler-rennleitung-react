@@ -86,16 +86,22 @@ export class RaceController {
             .reduce(
               (accumulator: number, currentValue: number) =>
                 accumulator + currentValue,
-            ) || 0;
+              0,
+            );
 
         const totalTime =
           shows
-            .map((show) => show.duration)
+            .map((show) => show.duration || 0)
             .reduce(
               (accumulator: number, currentValue: number) =>
                 accumulator + currentValue,
-            ) || 0;
+              0,
+            );
 
+        // No finished show yet: there is no average to report.
+        if (totalTime === 0) {
+          return 0;
+        }
         return Math.round(numberOfRaces / (totalTime / 60));
       }),
     );

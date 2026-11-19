@@ -35,7 +35,10 @@ export function CreateShow() {
       ),
     );
 
+  const [saving, setSaving] = useState(false);
+
   const save = async () => {
+    setSaving(true);
     try {
       const result = await createShow({
         name: values.name,
@@ -44,9 +47,10 @@ export function CreateShow() {
         active: true,
         finished: false,
       });
-      await snackbar.open(`Successfully Created Show ${values.name}`, { variant: "success" });
+      await snackbar.success(`Successfully Created Show ${values.name}`, 200);
       navigate(`/show/${result.id}`);
     } catch (error) {
+      setSaving(false);
       snackbar.error("Error during Creation Of Show", error);
     }
   };
@@ -81,7 +85,7 @@ export function CreateShow() {
         </Button>
       </div>
 
-      <Button variant="contained" disabled={!isShowFormValid(values)} onClick={save}>
+      <Button variant="contained" disabled={saving || !isShowFormValid(values)} onClick={save}>
         Speichern
       </Button>
     </div>

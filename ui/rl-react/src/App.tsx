@@ -1,5 +1,5 @@
 import { useEffect, useState, type MouseEvent } from "react";
-import { Link, Navigate, NavLink, Route, Routes } from "react-router-dom";
+import { Link, Navigate, NavLink, Route, Routes, useLocation } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Icon from "@mui/material/Icon";
 import IconButton from "@mui/material/IconButton";
@@ -49,14 +49,26 @@ export function App() {
   const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
   const [currentShow, setCurrentShow] = useState<Show | undefined>(undefined);
 
+  const { pathname } = useLocation();
+
   useEffect(() => {
     console.info("Welcome to RL Version 1.0.0");
+  }, []);
+
+  // Reloaded on every navigation, so a show that was just created, started or stopped shows up right away.
+  useEffect(() => {
+    let cancelled = false;
     getAllShows().then(
       // The list is ordered active-first, so the first entry is the current show.
-      (shows) => setCurrentShow(shows.some((show) => show.active) ? shows[0] : undefined),
+      (shows) => {
+        if (!cancelled) setCurrentShow(shows.some((show) => show.active) ? shows[0] : undefined);
+      },
       (error) => console.error(error),
     );
-  }, []);
+    return () => {
+      cancelled = true;
+    };
+  }, [pathname]);
 
   const closeMenu = () => setMenuAnchor(null);
 
