@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { colors } from "../../theme";
 import "./RaceTrack.css";
 
 const TICK_MS = 100;
@@ -53,13 +55,16 @@ export function RaceTrack() {
 
   return (
     <div className="race-track">
+      <Link className="race-track-back" to="/views" aria-label="Zurück zu den Views">
+        ← Views
+      </Link>
       <div className="race-track-stage">
         <div className="race-track-riders">
-          <div className="race-track-rider" style={{ color: "white" }}>
+          <div className="race-track-rider race-track-rider-white">
             <h2>Melis</h2>
             <div className="race-track-speed">65 km/h</div>
           </div>
-          <div className="race-track-rider" style={{ color: "black" }}>
+          <div className="race-track-rider race-track-rider-black">
             <h2>Kim</h2>
             <div className="race-track-speed">65 km/h</div>
           </div>
@@ -78,14 +83,14 @@ export function RaceTrack() {
             </clipPath>
           </defs>
 
-          <path fill="#c5426a" d={OUTER_SHAPE} />
+          <path fill={colors.pink} d={OUTER_SHAPE} />
 
           <g clipPath="url(#race-track-white-lane)">
             <path
               ref={whiteLane}
               className="race-track-lane"
               fill="none"
-              stroke="#fff"
+              stroke={colors.paper}
               strokeWidth="30"
               d={WHITE_LANE}
               style={{
@@ -100,7 +105,7 @@ export function RaceTrack() {
               ref={blackLane}
               className="race-track-lane"
               fill="none"
-              stroke="#400112"
+              stroke={colors.black}
               strokeWidth="30"
               d={BLACK_LANE}
               style={{
@@ -123,13 +128,13 @@ export function RaceTrack() {
                   y={row * CHECKER_SIZE}
                   width={CHECKER_SIZE}
                   height={CHECKER_SIZE}
-                  fill={(row + column) % 2 === 0 ? "#f1f1f1" : "#400112"}
+                  fill={(row + column) % 2 === 0 ? colors.paper : colors.black}
                 />
               );
             })}
           </g>
 
-          <path fill="#ecaec0" d={INFIELD_SHAPE} />
+          <path fill={colors.surface} d={INFIELD_SHAPE} />
         </svg>
       </div>
     </div>

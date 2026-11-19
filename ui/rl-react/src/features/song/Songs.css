@@ -8,6 +8,6 @@
 }
 
 .songs .song-blocked td {
-  background-color: lightgray;
+  color: var(--pt-gray-border);
   text-decoration: line-through;
 }

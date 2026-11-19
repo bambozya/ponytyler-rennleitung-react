@@ -1,11 +1,45 @@
-.shows .active-show {
-  background-color: #dea4f3;
+/* Each show is a row with a coloured edge: mint = live, paper = upcoming, grey = done. */
+.shows tr.active-show td,
+.shows tr.upcoming-show td,
+.shows tr.finished-show td {
+  border-bottom: 1px solid var(--pt-gray-border);
 }
 
-.shows .finished-show {
-  background-color: #cccccc;
+.shows tr.active-show td:first-child {
+  box-shadow: inset 6px 0 0 var(--pt-mint);
+  color: var(--pt-mint);
 }
 
-.shows .upcoming-show {
-  background-color: #f6e6fc;
+.shows tr.active-show td.clickable {
+  font-weight: 700;
+}
+
+.shows tr.active-show td.show-name {
+  font-family: var(--pt-display);
+  font-size: 1.15rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.shows tr.upcoming-show td:first-child {
+  box-shadow: inset 6px 0 0 var(--pt-paper);
+}
+
+.shows tr.finished-show td {
+  color: var(--pt-gray);
+}
+
+.shows tr.finished-show td:first-child {
+  box-shadow: inset 6px 0 0 var(--pt-gray-border);
+}
+
+.shows td.clickable:hover {
+  color: var(--pt-pink);
+}
+
+.shows .live-chip {
+  margin-right: 0.5em;
+  background: var(--pt-mint);
+  color: var(--pt-ink);
 }

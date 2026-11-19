@@ -1,29 +1,160 @@
+/* Look and feel of ponytyler.de: near-black with film grain, paper-coloured type, pink and mint
+   accents, hard edges, tilted stickers. The colours mirror `colors` in theme.ts. */
+:root {
+  --pt-ink: #121212;
+  --pt-black: #090909;
+  --pt-surface: #1e1e1e;
+  --pt-surface-raised: #282826;
+  --pt-paper: #e9e3d3;
+  --pt-pink: #ec4899;
+  --pt-mint: #48ec9b;
+  --pt-orange: #f2853d;
+  --pt-sky: #62b6f5;
+  --pt-gray: #aaa493;
+  --pt-gray-border: #5b594f;
+  --pt-display: "Archivo Black", "Arial Black", sans-serif;
+  --pt-mono: "Space Mono", ui-monospace, monospace;
+  --pt-border: 3px;
+  color-scheme: dark;
+}
+
 html,
 body,
 #root {
-  height: 100%;
+  min-height: 100%;
 }
 
 body {
+  position: relative;
+  isolation: isolate;
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: var(--pt-paper);
+  background: var(--pt-black);
+  font-family: var(--pt-mono);
+  line-height: 1.5;
 }
 
-hr {
-  margin: 0 30px;
-  color: #999;
-  border-style: none;
-  border-top-style: dotted;
+/* Film grain over everything behind the content. */
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  opacity: 0.12;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
 }
 
-h2 {
-  padding: 0.5em;
-  margin: 0.25em 0 0.25em;
+::selection {
+  background: var(--pt-pink);
+  color: var(--pt-ink);
 }
 
-h3 {
-  padding: 0.5em;
-  margin: 2em 0 1em;
+a {
+  color: var(--pt-mint);
+}
+
+/* ---- Shell: one dark column on the grainy black, like the website ---- */
+.site-shell {
+  max-width: 1100px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: var(--pt-surface);
+  box-shadow:
+    0 0 0 10px rgba(9, 9, 9, 0.82),
+    0 0 80px rgba(0, 0, 0, 0.9);
+}
+
+.masthead {
+  border-bottom: var(--pt-border) solid var(--pt-paper);
+}
+
+.masthead .MuiToolbar-root {
+  gap: 14px;
+  padding-top: 14px;
+  padding-bottom: 12px;
+  align-items: center;
+}
+
+.masthead-menu,
+.masthead-add {
+  width: 48px;
+  height: 48px;
+  border: var(--pt-border) solid var(--pt-paper) !important;
+}
+
+.masthead-menu:hover {
+  background: var(--pt-paper) !important;
+  color: var(--pt-ink) !important;
+}
+
+.masthead-add {
+  border-color: var(--pt-pink) !important;
+  background: var(--pt-pink) !important;
+  color: var(--pt-ink) !important;
+  transform: rotate(4deg);
+}
+
+.masthead-add:hover {
+  border-color: var(--pt-mint) !important;
+  background: var(--pt-mint) !important;
+  transform: rotate(-3deg);
+}
+
+.wordmark {
+  margin: 0;
+  padding: 0;
+  font-family: var(--pt-display);
+  font-size: clamp(1.9rem, 6.5vw, 2.9rem);
+  font-weight: 400;
+  line-height: 0.78;
+  letter-spacing: -0.055em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--pt-paper);
+}
+
+.wordmark em {
+  display: block;
+  margin-left: 0.6em;
+  color: var(--pt-pink);
+  font-style: normal;
+}
+
+.masthead-tag {
+  align-self: flex-end;
+  margin: 0 0 2px;
+  padding: 2px 8px;
+  background: var(--pt-mint);
+  color: var(--pt-ink);
+  font-family: var(--pt-display);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transform: rotate(-3deg);
+}
+
+.tagline {
+  margin: 0;
+  padding: 6px 16px 8px;
+  border-bottom: 1px solid var(--pt-gray-border);
+  color: var(--pt-gray);
+  font-family: var(--pt-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.tagline span {
+  padding: 0 0.4em;
+  color: var(--pt-mint);
+}
+
+@media (max-width: 480px) {
+  .masthead-tag {
+    display: none;
+  }
 }
 
 .toolbar-spacer {
@@ -32,51 +163,149 @@ h3 {
 
 .main-stage {
   margin: 0;
-  padding: 0.5em;
+  padding: 12px 16px 64px;
+}
+
+/* ---- Type ---- */
+h1,
+h2,
+h3 {
+  font-family: var(--pt-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.main-stage h1,
+.main-stage h2 {
+  margin: 0.7em 0 0.5em;
+  padding: 0;
+  font-size: clamp(1.7rem, 6vw, 2.6rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+}
+
+/* The last word of a page heading may be wrapped in a span to turn it pink, like TIME-LINE on the site. */
+h1 span,
+h2 span {
+  color: var(--pt-pink);
+}
+
+.main-stage h3 {
+  display: inline-block;
+  margin: 2em 0 0.8em;
+  padding: 3px 10px 2px;
+  background: var(--pt-paper);
+  color: var(--pt-ink);
+  font-size: 1rem;
+  letter-spacing: 0;
+  transform: rotate(-1.2deg);
+}
+
+hr {
+  margin: 28px 0;
+  border: 0;
+  border-top: var(--pt-border) solid var(--pt-paper);
 }
 
 .form-row {
+  max-width: 620px;
   margin-bottom: 22px;
 }
 
+.form-row > .MuiTextField-root {
+  width: 100%;
+}
+
 .button-list-wrapper {
-  margin-top: 2em;
-  margin-bottom: 1em;
+  margin-top: 1.5em;
+  margin-bottom: 1.25em;
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
   align-items: flex-start;
   align-content: flex-start;
-  gap: 1em;
+  gap: 12px;
 }
 
+/* ---- Stickers: tilted blocks of flat colour ---- */
 .message {
-  border: 1px dotted #333333;
-  padding: 10px;
-  margin: 10px 0;
+  max-width: 60ch;
+  margin: 18px 0;
+  padding: 12px 16px;
+  border: 0;
+  color: var(--pt-ink);
+  font-weight: 700;
+  transform: rotate(-0.8deg);
 }
 .message-error {
-  color: white;
-  background-color: darkred;
+  background-color: var(--pt-pink);
 }
 .message-warn {
-  color: red;
-  background-color: #f5f5f5;
+  background-color: var(--pt-orange);
 }
 .message-info {
-  color: darkblue;
-  background-color: lightblue;
+  background-color: var(--pt-sky);
 }
 .message-success {
-  color: white;
-  background-color: darkgreen;
+  background-color: var(--pt-mint);
+}
+
+.empty-note {
+  max-width: 44ch;
+  margin: 28px 0;
+  padding: 14px 18px;
+  background: var(--pt-mint);
+  color: var(--pt-ink);
+  font-family: var(--pt-display);
+  font-size: 1.15rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+  transform: rotate(1.5deg);
+}
+
+/* Small label chip, like NEXT on the website. */
+.chip {
+  display: inline-block;
+  padding: 0 0.35em;
+  background: var(--pt-ink);
+  color: var(--pt-mint);
+  font-family: var(--pt-display);
+  font-size: 0.8em;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  vertical-align: baseline;
 }
 
 .duration-helper-button {
-  font-size: 12px !important;
-  padding: 1px !important;
+  min-width: 56px !important;
+  padding: 4px 8px !important;
+  font-size: 13px !important;
 }
 
 .clickable {
   cursor: pointer;
+}
+
+/* Tables scroll sideways on narrow screens instead of breaking the shell. */
+.main-stage table {
+  width: 100%;
+}
+
+@media (max-width: 700px) {
+  .main-stage .MuiTableCell-root {
+    padding: 8px 6px;
+  }
+}
+
+/* Keyboard focus is always visible on the dark background. */
+:focus-visible {
+  outline: 3px solid var(--pt-mint);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
 }

@@ -1,11 +1,23 @@
 .director-dashboard table td {
-  padding: 5px;
+  padding: 8px 6px;
 }
 
 .director-dashboard .winning-bike {
-  background-color: lightpink;
+  background-color: #16291f;
+  color: var(--pt-mint);
+  font-weight: 700;
 }
 
 .director-dashboard .bike-won-icon {
-  border-right: 1px dotted #999;
+  border-right: 2px solid var(--pt-gray-border);
+}
+
+.director-dashboard .bike-won-icon .MuiIconButton-root {
+  border: 2px solid var(--pt-mint);
+  color: var(--pt-mint);
+}
+
+.director-dashboard .bike-won-icon .MuiIconButton-root:hover {
+  background: var(--pt-mint);
+  color: var(--pt-ink);
 }

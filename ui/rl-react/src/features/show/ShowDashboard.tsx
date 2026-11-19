@@ -336,7 +336,7 @@ export function ShowDashboard() {
           </div>
 
           {races.length === 0 ? (
-            <p>No Races yet</p>
+            <p className="empty-note">Noch keine Rennen. Wer traut sich?</p>
           ) : (
             <Table>
               <TableHead>
@@ -344,8 +344,12 @@ export function ShowDashboard() {
                   <TableCell>
                     <Icon>tag</Icon>
                   </TableCell>
-                  <TableCell>White Bike</TableCell>
-                  <TableCell>Black Bike</TableCell>
+                  <TableCell>
+                    <span className="bike-label bike-label-white">White Bike</span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="bike-label bike-label-black">Black Bike</span>
+                  </TableCell>
                   <TableCell>Actions</TableCell>
                 </TableRow>
               </TableHead>
@@ -355,7 +359,7 @@ export function ShowDashboard() {
                   const waitingToRace = state === RaceState.WAITING_TO_RACE;
                   return (
                     <TableRow key={race.id} className={stateRowClass[state]}>
-                      <TableCell title={`#${race.id}`}>
+                      <TableCell className="race-number" title={`#${race.id}`}>
                         {race.orderNumber + 1}
                         <br />
                         <Icon>{stateIcon[state]}</Icon>

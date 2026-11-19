@@ -6,7 +6,6 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import { getAllShows, type Show } from "./api/show";
 import { RaceTrack } from "./features/race-track/RaceTrack";
 import { CreateRace } from "./features/show/CreateRace";
@@ -73,11 +72,11 @@ export function App() {
   const closeMenu = () => setMenuAnchor(null);
 
   return (
-    <>
-      <AppBar position="static" color="default" elevation={0}>
+    <div className="site-shell">
+      <AppBar className="masthead" position="static" color="default" elevation={0}>
         <Toolbar>
           <IconButton
-            edge="start"
+            className="masthead-menu"
             aria-label="Open menu"
             onClick={(event: MouseEvent<HTMLElement>) => setMenuAnchor(event.currentTarget)}
           >
@@ -90,16 +89,26 @@ export function App() {
               </MenuItem>
             ))}
           </Menu>
-          <Typography variant="h6" component="h1">
-            Pony Tyler Rennleitung
-          </Typography>
+          <Link className="wordmark" to="/show" aria-label="Pony Tyler Rennleitung">
+            Pony<em>Tyler</em>
+          </Link>
+          <p className="masthead-tag">Rennleitung</p>
           <span className="toolbar-spacer" />
           {currentShow && (
-            <IconButton aria-label="Add Race" component={Link} to={`/show/${currentShow.id}/create-race`}>
-              <Icon>add_box</Icon>
+            <IconButton
+              className="masthead-add"
+              aria-label="Add Race"
+              title={`Rennen für ${currentShow.name} eintragen`}
+              component={Link}
+              to={`/show/${currentShow.id}/create-race`}
+            >
+              <Icon>add</Icon>
             </IconButton>
           )}
         </Toolbar>
+        <p className="tagline">
+          Goldsprint <span>+</span> Massenkaraoke
+        </p>
       </AppBar>
 
       <div className="main-stage">
@@ -145,6 +154,6 @@ export function App() {
           </Route>
         </Routes>
       </div>
-    </>
+    </div>
   );
 }

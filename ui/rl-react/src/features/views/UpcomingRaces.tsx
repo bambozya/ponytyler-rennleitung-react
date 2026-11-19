@@ -1,12 +1,7 @@
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
 import { getUpcomingRaces, type Race } from "../../api/race";
 import { getAllShows } from "../../api/show";
 import { useLoad } from "../../hooks/useLoad";
-
-const personStyle = { fontWeight: "bolder", fontSize: "1.2rem", letterSpacing: "0.15rem" } as const;
+import "./Views.css";
 
 async function loadUpcomingRaces(): Promise<Race[] | undefined> {
   const shows = await getAllShows();
@@ -14,36 +9,43 @@ async function loadUpcomingRaces(): Promise<Race[] | undefined> {
   return shows.some((show) => show.active) ? getUpcomingRaces() : undefined;
 }
 
+function Rider({ race, bike }: { race: Race; bike: 1 | 2 }) {
+  const person = bike === 1 ? race.person1 : race.person2;
+  const song = bike === 1 ? race.song1 : race.song2;
+  return (
+    <div className="race-sticker-rider">
+      <strong>{person}</strong>
+      {song && (
+        <span>
+          {song.artist} – {song.name}
+        </span>
+      )}
+    </div>
+  );
+}
+
 export function UpcomingRaces() {
   const races = useLoad(loadUpcomingRaces, []);
 
   return (
     <div>
-      <h2>Upcomming Races</h2>
+      <h2>
+        Wer fährt <span>wann?</span>
+      </h2>
       {races.data &&
         (races.data.length === 0 ? (
-          <p>No Races yet</p>
+          <p className="empty-note">Noch keine Rennen. Wer traut sich?</p>
         ) : (
-          <Table>
-            <TableBody>
-              {races.data.map((race) => (
-                <TableRow key={race.id}>
-                  <TableCell>
-                    <div style={personStyle}>{race.person1}</div>
-                    <div>
-                      {race.song1?.artist} - {race.song1?.name}
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <div style={personStyle}>{race.person2}</div>
-                    <div>
-                      {race.song2?.artist} - {race.song2?.name}
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <ol className="race-stickers">
+            {races.data.map((race, index) => (
+              <li className="race-sticker" key={race.id}>
+                <span className="race-sticker-number">{index + 1}</span>
+                <Rider race={race} bike={1} />
+                <span className="race-sticker-vs">vs.</span>
+                <Rider race={race} bike={2} />
+              </li>
+            ))}
+          </ol>
         ))}
     </div>
   );

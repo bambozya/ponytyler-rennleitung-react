@@ -87,9 +87,13 @@ export function Shows() {
         <input ref={uploadInput} type="file" multiple hidden onChange={uploadDatabaseBackup} />
       </ButtonList>
 
+      {shows.data && shows.data.length === 0 && (
+        <p className="empty-note">Noch keine Show. Zeit für Bühnenchaos.</p>
+      )}
+
       {shows.data && shows.data.length > 0 && (
         <>
-          <h3>Aktive Shows</h3>
+          <h3>Alle Shows seit Anbeginn</h3>
           <Table>
             <TableHead>
               <TableRow>
@@ -112,7 +116,8 @@ export function Shows() {
                   <TableCell className="clickable" onClick={() => navigate(`/show/${show.id}`)}>
                     {formatDateTime(show.date)}
                   </TableCell>
-                  <TableCell className="clickable" onClick={() => navigate(`/show/${show.id}`)}>
+                  <TableCell className="clickable show-name" onClick={() => navigate(`/show/${show.id}`)}>
+                    {show.active && <span className="chip live-chip">Live</span>}
                     {show.name}
                   </TableCell>
                   <TableCell>

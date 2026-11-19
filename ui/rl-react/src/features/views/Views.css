@@ -1,0 +1,206 @@
+/* The views are what the room sees, so they shout. */
+.versus {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  gap: 0;
+  margin: 24px 0 40px;
+}
+
+.versus-rider {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 22px 20px 26px;
+  border: var(--pt-border) solid var(--pt-paper);
+}
+
+.versus-white {
+  background: var(--pt-paper);
+  color: var(--pt-ink);
+  transform: rotate(-1.5deg);
+}
+
+.versus-black {
+  background: var(--pt-black);
+  color: var(--pt-paper);
+  transform: rotate(1.5deg);
+}
+
+.versus-rider strong {
+  font-family: var(--pt-display);
+  font-size: clamp(2rem, 7vw, 4.5rem);
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  line-height: 0.85;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.versus-song {
+  font-size: clamp(0.95rem, 2.2vw, 1.3rem);
+  font-weight: 700;
+}
+
+.versus-bike {
+  align-self: flex-start;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.versus-vs {
+  z-index: 1;
+  align-self: center;
+  margin: 0 -14px;
+  padding: 6px 12px 4px;
+  background: var(--pt-pink);
+  color: var(--pt-ink);
+  font-family: var(--pt-display);
+  font-size: clamp(1.4rem, 4vw, 2.6rem);
+  line-height: 1;
+  text-transform: uppercase;
+  transform: rotate(-8deg);
+}
+
+@media (max-width: 640px) {
+  .versus {
+    grid-template-columns: 1fr;
+  }
+  .versus-vs {
+    justify-self: center;
+    margin: -12px 0;
+  }
+}
+
+/* Upcoming races: every race is a sticker in one of the site colours, tilted alternately. */
+.race-stickers {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.race-sticker {
+  display: grid;
+  grid-template-columns: auto 1fr auto 1fr;
+  align-items: center;
+  gap: 6px 16px;
+  margin-bottom: 8px;
+  padding: 10px 16px 12px;
+  background: var(--pt-pink);
+  color: var(--pt-ink);
+}
+
+.race-sticker:nth-child(odd) {
+  transform: rotate(-0.6deg);
+}
+.race-sticker:nth-child(even) {
+  transform: rotate(0.5deg);
+}
+.race-sticker:nth-child(5n + 2) {
+  background: var(--pt-mint);
+}
+.race-sticker:nth-child(5n + 3) {
+  background: var(--pt-paper);
+}
+.race-sticker:nth-child(5n + 4) {
+  background: var(--pt-orange);
+}
+.race-sticker:nth-child(5n + 5) {
+  background: var(--pt-sky);
+}
+
+.race-sticker-number {
+  min-width: 1.6em;
+  font-family: var(--pt-display);
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.race-sticker-rider {
+  min-width: 0;
+}
+
+.race-sticker-rider strong {
+  display: block;
+  font-family: var(--pt-display);
+  font-size: 1.35rem;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.race-sticker-vs {
+  font-family: var(--pt-display);
+  text-transform: uppercase;
+}
+
+/* The first one is up next. */
+.race-sticker:first-child {
+  padding-top: 16px;
+  padding-bottom: 18px;
+}
+.race-sticker:first-child .race-sticker-rider strong {
+  font-size: 1.9rem;
+}
+
+@media (max-width: 640px) {
+  .race-sticker {
+    grid-template-columns: auto 1fr;
+  }
+  .race-sticker-vs {
+    display: none;
+  }
+  .race-sticker-rider:last-child {
+    grid-column: 2;
+  }
+}
+
+.view-links {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.view-link {
+  display: block;
+  flex: 1 1 220px;
+  padding: 18px 20px 22px;
+  background: var(--pt-mint);
+  color: var(--pt-ink);
+  font-family: var(--pt-display);
+  font-size: 1.6rem;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  transform: rotate(-1.5deg);
+}
+
+.view-link:nth-child(even) {
+  background: var(--pt-pink);
+  transform: rotate(1.5deg);
+}
+
+.view-link:nth-child(3n) {
+  background: var(--pt-orange);
+  transform: rotate(-0.8deg);
+}
+
+.view-link:hover {
+  background: var(--pt-paper);
+}
+
+.view-link small {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--pt-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}

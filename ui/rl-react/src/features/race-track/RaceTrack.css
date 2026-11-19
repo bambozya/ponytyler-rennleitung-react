@@ -1,15 +1,31 @@
+/* Full screen: the pink track on the dark stage, riders as stickers in the infield. */
 .race-track {
   position: fixed;
   z-index: 1200;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: #ecaec0;
+  background: var(--pt-surface);
+}
+
+.race-track-back {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 1;
+  padding: 6px 12px;
+  border: var(--pt-border) solid var(--pt-paper);
+  color: var(--pt-paper);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.race-track-back:hover {
+  border-color: var(--pt-mint);
+  background: var(--pt-mint);
+  color: var(--pt-ink);
 }
 
 .race-track-stage {
@@ -24,29 +40,58 @@
 .race-track-riders {
   display: flex;
   position: absolute;
-  font-family: monospace;
-  justify-content: space-between;
-  width: 50%;
+  z-index: 1;
+  justify-content: center;
+  gap: 4%;
+  width: 56%;
 }
 
 .race-track-rider {
+  flex: 0 1 44%;
+  min-width: 0;
+  padding: 1.2vw 1.6vw 1.4vw;
+  border: var(--pt-border) solid var(--pt-paper);
   text-align: center;
-  flex-grow: 1;
+}
+
+.race-track-rider-white {
+  background: var(--pt-paper);
+  color: var(--pt-ink);
+  transform: rotate(-2deg);
+}
+
+.race-track-rider-black {
+  background: var(--pt-black);
+  color: var(--pt-paper);
+  transform: rotate(2deg);
 }
 
 .race-track-rider h2 {
-  font-size: xxx-large;
-  font-family: monospace;
+  margin: 0;
+  font-size: clamp(1.4rem, 4.2vw, 4rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  overflow-wrap: anywhere;
 }
 
 .race-track-speed {
-  font-size: x-large;
+  margin-top: 0.4em;
+  font-size: clamp(0.9rem, 1.8vw, 1.6rem);
+  font-weight: 700;
 }
 
 .race-track-cheer {
-  font-family: monospace;
-  font-weight: bold;
-  color: #c5426a;
+  position: absolute;
+  bottom: 21%;
+  z-index: 1;
+  margin: 0;
+  padding: 4px 14px;
+  background: var(--pt-mint);
+  color: var(--pt-ink);
+  font-family: var(--pt-display);
+  font-size: clamp(0.9rem, 2.2vw, 1.8rem);
+  text-transform: uppercase;
+  transform: rotate(-3deg);
 }
 
 .race-track-lane {

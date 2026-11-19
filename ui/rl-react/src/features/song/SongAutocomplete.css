@@ -3,11 +3,12 @@
 }
 
 .song-option.alreadyWished {
-  background-color: rgb(255, 255, 128);
-  color: black;
+  box-shadow: inset 6px 0 0 var(--pt-sky);
+  color: var(--pt-sky);
 }
 
 .song-option.alreadyPlayed {
-  background-color: rgb(255, 206, 206);
-  color: rgb(46, 0, 0);
+  box-shadow: inset 6px 0 0 var(--pt-pink);
+  color: var(--pt-pink);
+  text-decoration: line-through;
 }

@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useMemo, useRef, useState, type
 import Button from "@mui/material/Button";
 import MuiSnackbar, { type SnackbarCloseReason } from "@mui/material/Snackbar";
 import SnackbarContent from "@mui/material/SnackbarContent";
+import { colors as colorTokens } from "../theme";
 
 type Variant = "default" | "success" | "error";
 
@@ -26,9 +27,9 @@ interface SnackbarItem {
 }
 
 const colors: Record<Variant, { background?: string; action: string; actionBackground?: string }> = {
-  default: { action: "#ffb0ca" },
-  success: { background: "#056905", action: "#fff", actionBackground: "#053d05" },
-  error: { background: "#a00000", action: "#fff", actionBackground: "#4f0606" },
+  default: { background: colorTokens.paper, action: colorTokens.paper, actionBackground: colorTokens.ink },
+  success: { background: colorTokens.mint, action: colorTokens.mint, actionBackground: colorTokens.ink },
+  error: { background: colorTokens.pink, action: colorTokens.pink, actionBackground: colorTokens.ink },
 };
 
 /** Prefers the backend's own message over a dump of the whole error object. */
@@ -101,7 +102,13 @@ export function SnackbarProvider({ children }: { children: ReactNode }) {
         >
           <SnackbarContent
             message={item.message}
-            sx={{ backgroundColor: color.background }}
+            sx={{
+              backgroundColor: color.background,
+              color: colorTokens.ink,
+              fontWeight: 700,
+              transform: "rotate(-1deg)",
+              boxShadow: "0 0 30px rgba(0, 0, 0, 0.8)",
+            }}
             action={
               <Button
                 size="small"
