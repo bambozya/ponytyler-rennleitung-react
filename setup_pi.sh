@@ -10,9 +10,13 @@ nvm install 22
 nvm use 22
 cd ~
 git clone https://github.com/ragsnas/ponytyler-rennleitung.git
-sudo cp ponytyler-rennleitung/ui/rl/dist/rl/*.* /var/www/html/
+cd ~/ponytyler-rennleitung/ui/rl-react
+npm ci
+npm run build
+cd ~
+sudo cp ponytyler-rennleitung/ui/rl-react/dist/*.* /var/www/html/
 sudo chmod a+r /var/www/html/*.*
-sudo cp ponytyler-rennleitung/ui/rl/nginx_config /etc/nginx/sites-enabled/default
+sudo cp ponytyler-rennleitung/ui/rl-react/nginx_config /etc/nginx/sites-enabled/default
 sudo systemctl start nginx
 sudo systemctl restart nginx
 npm install pm2 -g

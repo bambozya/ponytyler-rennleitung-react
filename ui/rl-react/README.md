@@ -1,6 +1,6 @@
 # Rennleitung UI (React)
 
-React rewrite of the Angular app in `../rl`. Same screens, same routes, same backend API.
+React rewrite of the former Angular app. Same screens, same routes, same backend API.
 
 Stack: Vite, React, TypeScript, React Router, MUI.
 

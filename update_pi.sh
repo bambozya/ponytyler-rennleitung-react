@@ -6,11 +6,15 @@ sudo cp --verbose ~/ponytyler-rennleitung/be/prisma/*.db ~/rl_db_backup_$EPOCHSE
 printf "\n- PULL FROM REPOSITORY ----------------------------\n"
 git reset --hard
 git pull
+printf "\n- BUILD UI ----------------------------------------\n"
+cd ~/ponytyler-rennleitung/ui/rl-react
+npm ci
+npm run build
 printf "\n- COPY UI TO NGINX HTML FOLDER --------------------\n"
-sudo cp --verbose ~/ponytyler-rennleitung/ui/rl/dist/rl/browser/*.* /var/www/html/
+sudo cp --verbose ~/ponytyler-rennleitung/ui/rl-react/dist/*.* /var/www/html/
 sudo chmod -v a+r /var/www/html/*.*
 printf "\n- OVERWRITE NGINX CONFIG --------------------------\n"
-sudo cp --verbose ~/ponytyler-rennleitung/ui/rl/nginx_config /etc/nginx/sites-enabled/default
+sudo cp --verbose ~/ponytyler-rennleitung/ui/rl-react/nginx_config /etc/nginx/sites-enabled/default
 printf "\n- RESTORE DATABASE BACKUP -------------------------\n"
 sudo cp --verbose ~/rl.db ~/ponytyler-rennleitung/be/prisma/rl.db
 printf "\n- RESTART NGINX -----------------------------------\n"
