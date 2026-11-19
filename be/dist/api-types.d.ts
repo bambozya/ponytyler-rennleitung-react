@@ -23,6 +23,8 @@ export type NewRace = Pick<Race, "showId" | "raceState"> & Partial<Pick<Race, "p
 export type User = Json<Db.User>;
 export type NewUser = Creatable<User, "name">;
 export type Shift = Json<Db.Shift>;
-export type StatSong = Json<neverWishedSongs.Result>;
+export type StatSong = Omit<Json<neverWishedSongs.Result>, "totalCount"> & {
+    totalCount: number | null;
+};
 export type WhichBikeWonMost = Json<whichBikeWonMost.Result>;
 export {};

@@ -1,24 +1,15 @@
+-- A song counts as wished once for every race it was picked for, on either bike.
 SELECT
-	s.artist, s.name, stats.totalCount
-FROM Song s
-		 INNER JOIN (
-	SELECT
-		(COALESCE(s1.songId, s2.songId, 0)) AS songId,
-		(COALESCE(s1.countSong1,0)+COALESCE(s2.countSong2,0)) AS totalCount
-	FROM (
-			 SELECT
-				 r.song1Id AS songId,
-				 COUNT(r.song1Id) AS countSong1
-			 FROM Race r
-			 GROUP BY r.song1Id
-		 ) AS s1
-			 LEFT OUTER JOIN (
-		SELECT
-			r.song2Id AS songId,
-			COUNT(r.song2Id) AS countSong2
-		FROM Race r
-		GROUP BY r.song2Id
-	) AS s2 ON (s1.songId = s2.songId)
-) as stats ON (s.id = stats.songId)
-ORDER BY stats.totalCount DESC
-
+	s.artist, s.name, COUNT(*) AS totalCount
+FROM (
+	SELECT r.song1Id AS songId
+	FROM Race r
+	WHERE r.song1Id IS NOT NULL
+	UNION ALL
+	SELECT r.song2Id AS songId
+	FROM Race r
+	WHERE r.song2Id IS NOT NULL
+) AS wished
+		 INNER JOIN Song s ON s.id = wished.songId
+GROUP BY s.id, s.artist, s.name
+ORDER BY totalCount DESC, s.artist, s.name

@@ -1,24 +1,20 @@
+-- Selectable songs that were never picked for a race, on either bike. totalCount is always NULL here;
+-- the column is kept so the rows have the same shape as the other song statistics.
 SELECT
-	s.artist, s.name, stats.totalCount
+	s.artist, s.name, wished.totalCount
 FROM Song s
 		 LEFT JOIN (
-	SELECT
-		(COALESCE(s1.songId, s2.songId, 0)) AS songId,
-		(COALESCE(s1.countSong1,0)+COALESCE(s2.countSong2,0)) AS totalCount
+	SELECT picked.songId, COUNT(*) AS totalCount
 	FROM (
-			 SELECT
-				 r.song1Id AS songId,
-				 COUNT(r.song1Id) AS countSong1
-			 FROM Race r
-			 GROUP BY r.song1Id
-		 ) AS s1
-			 LEFT OUTER JOIN (
-		SELECT
-			r.song2Id AS songId,
-			COUNT(r.song2Id) AS countSong2
+		SELECT r.song1Id AS songId
 		FROM Race r
-		GROUP BY r.song2Id
-	) AS s2 ON (s1.songId = s2.songId)
-) as stats ON (s.id = stats.songId)
-WHERE s.selectable = 1 AND s.deleted = 0 AND totalCount IS NULL
-
+		WHERE r.song1Id IS NOT NULL
+		UNION ALL
+		SELECT r.song2Id AS songId
+		FROM Race r
+		WHERE r.song2Id IS NOT NULL
+	) AS picked
+	GROUP BY picked.songId
+) AS wished ON wished.songId = s.id
+WHERE s.selectable = 1 AND s.deleted = 0 AND wished.songId IS NULL
+ORDER BY s.artist, s.name

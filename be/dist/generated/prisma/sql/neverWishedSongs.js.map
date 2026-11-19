@@ -1,1 +1,1 @@
-{"version":3,"file":"neverWishedSongs.js","sourceRoot":"","sources":["../../../../src/generated/prisma/sql/neverWishedSongs.ts"],"names":[],"mappings":";;;AAKA,0DAAyD;AAI5C,QAAA,gBAAgB,GAAG,QAAQ,CAAC,qBAAqB,CAAC,ijBAAijB,CAAkF,CAAA"}
+{"version":3,"file":"neverWishedSongs.js","sourceRoot":"","sources":["../../../../src/generated/prisma/sql/neverWishedSongs.ts"],"names":[],"mappings":";;;AAKA,0DAAyD;AAI5C,QAAA,gBAAgB,GAAG,QAAQ,CAAC,qBAAqB,CAAC,6bAA6b,CAAkF,CAAA"}

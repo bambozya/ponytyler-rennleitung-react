@@ -47,6 +47,9 @@ export type NewUser = Creatable<User, "name">;
 
 export type Shift = Json<Db.Shift>;
 
-/** One row of the song statistics; the count is null for songs that were never wished. */
-export type StatSong = Json<neverWishedSongs.Result>;
+/**
+ * One row of the song statistics. The count is null for songs that were never wished; that is
+ * spelled out here because SQLite's type inference does not report nullability reliably.
+ */
+export type StatSong = Omit<Json<neverWishedSongs.Result>, "totalCount"> & { totalCount: number | null };
 export type WhichBikeWonMost = Json<whichBikeWonMost.Result>;
