@@ -110,6 +110,20 @@ export function App() {
           Goldsprint <span>+</span> Massenkaraoke
         </p>
       </AppBar>
+      {import.meta.env.VITE_DEMO === "true" && (
+        <p className="demo-note">
+          Demo: Shows, Songs und Fahrer sind ausgedacht. Was du änderst, bleibt nur in diesem Browser.{" "}
+          <button
+            type="button"
+            onClick={async () => {
+              (await import("./demo/backend")).resetDemo();
+              window.location.assign(import.meta.env.BASE_URL);
+            }}
+          >
+            Zurücksetzen
+          </button>
+        </p>
+      )}
 
       <div className="main-stage">
         <Routes>

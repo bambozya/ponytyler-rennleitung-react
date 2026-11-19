@@ -16,6 +16,18 @@ export function useTrackState(): TrackState | undefined {
   const [state, setState] = useState<TrackState | undefined>(undefined);
 
   useEffect(() => {
+    if (import.meta.env.VITE_DEMO === "true") {
+      let unsubscribe: (() => void) | undefined;
+      let cancelled = false;
+      import("../demo/backend").then(({ subscribeToTrack }) => {
+        if (!cancelled) unsubscribe = subscribeToTrack(setState);
+      });
+      return () => {
+        cancelled = true;
+        unsubscribe?.();
+      };
+    }
+
     const source = new EventSource(`${apiUrl}api/track/stream`);
     source.onmessage = (event) => setState(JSON.parse(event.data) as TrackState);
     return () => source.close();

@@ -2,6 +2,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
+  // GitHub Pages serves the demo from /<repository>/; everywhere else the app sits at the root.
+  base: process.env.VITE_BASE || "/",
   plugins: [react()],
   server: {
     // Same port and proxy as the Angular dev server, so the README's swa command keeps working.

@@ -48,3 +48,11 @@ BIKE_WHITE_INDEX=0
 ```
 
 Without `BIKE_SERIAL_PORT` the track runs on two simulated riders and says so on screen.
+
+## Demo on GitHub Pages
+
+https://bambozya.github.io/ponytyler-rennleitung-react/ is a demo of the frontend. GitHub Pages
+cannot run the backend, so the demo build (`VITE_DEMO=true`) answers all requests in the browser
+from sample data (`ui/rl-react/src/demo/backend.ts`) and runs the race track on simulated riders.
+Changes are kept in the visitor's own browser only. Every push to `main` redeploys it
+(`.github/workflows/pages.yml`).

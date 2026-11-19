@@ -1,6 +1,10 @@
 /** Base of all API paths. In development it is the page origin; Vite proxies /api to the backend. */
 export const apiUrl: string = import.meta.env.VITE_API_URL || "/";
 
+// The public demo (GitHub Pages) has no backend: requests are answered in the browser from sample
+// data (src/demo/backend.ts). Every place that loads the demo code tests
+// `import.meta.env.VITE_DEMO === "true"` directly, so the bundler drops it from normal builds.
+
 /** Plain object (not an Error) so it survives JSON.stringify in error snackbars. */
 export interface ApiError {
   status: number;
@@ -10,6 +14,12 @@ export interface ApiError {
 }
 
 async function request<T>(method: string, path: string, body?: unknown): Promise<T> {
+  if (import.meta.env.VITE_DEMO === "true") {
+    const { handleDemoRequest } = await import("../demo/backend");
+    // Through JSON and back, like a real response: the caller gets its own copy.
+    return JSON.parse(JSON.stringify((await handleDemoRequest(method, path, body)) ?? null)) as T;
+  }
+
   const url = `${apiUrl}${path}`;
   let response: Response;
   try {

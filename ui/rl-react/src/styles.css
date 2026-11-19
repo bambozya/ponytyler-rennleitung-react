@@ -374,3 +374,24 @@ hr {
   color: #55524a;
   opacity: 1;
 }
+
+/* ---- Public demo (GitHub Pages) ---- */
+.demo-note {
+  margin: 0;
+  padding: 6px 16px;
+  background: var(--pt-orange);
+  color: var(--pt-ink);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.demo-note button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
