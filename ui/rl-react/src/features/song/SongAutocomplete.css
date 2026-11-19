@@ -1,0 +1,13 @@
+.song-option {
+  gap: 8px;
+}
+
+.song-option.alreadyWished {
+  background-color: rgb(255, 255, 128);
+  color: black;
+}
+
+.song-option.alreadyPlayed {
+  background-color: rgb(255, 206, 206);
+  color: rgb(46, 0, 0);
+}

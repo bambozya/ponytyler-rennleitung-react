@@ -1,0 +1,125 @@
+.show-dashboard .refresh-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-self: flex-start;
+  gap: 15px;
+}
+
+.show-dashboard .refresh-setting {
+  flex-basis: auto;
+  flex-grow: 2;
+  min-height: 90px;
+}
+
+.show-dashboard table td {
+  padding: 5px;
+  border-right: 5px solid #ffffff;
+  border-bottom: 5px solid #ffffff;
+}
+
+.show-dashboard table th {
+  background-color: lightgray;
+  padding: 5px;
+  border-right: 5px solid #ffffff;
+  border-bottom: 5px solid #ffffff;
+}
+
+.show-dashboard .race-state-waiting-for-opponent td {
+  background-color: #e6bff5;
+}
+
+.show-dashboard .race-state-waiting-to-race td {
+  background-color: #f5f5f5;
+}
+
+.show-dashboard .race-state-canceled td {
+  background-color: rgb(220, 220, 220);
+  text-decoration: line-through;
+  color: grey;
+}
+
+.show-dashboard .race-state-raced td {
+  background-color: #c3e8ff;
+}
+
+/* Thick divider between the groups of the list. */
+.show-dashboard tr.race-state-waiting-to-race + tr.race-state-waiting-for-opponent td,
+.show-dashboard tr.race-state-waiting-to-race + tr.race-state-raced td,
+.show-dashboard tr.race-state-waiting-for-opponent + tr.race-state-raced td,
+.show-dashboard tr.race-state-raced + tr.race-state-canceled td {
+  border-top: 10px solid #333333;
+}
+
+.show-dashboard .race-state-raced td.winning-bike {
+  background-color: #469fbb;
+}
+
+.show-dashboard .song-already-played-info {
+  font-weight: bolder;
+  padding-left: 10px;
+}
+
+.show-dashboard .song-already-played-info .material-icons {
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+.show-dashboard .bike-has-lost {
+  min-width: 60px;
+  min-height: 60px;
+  float: right;
+  color: lightcoral;
+}
+
+.show-dashboard .bike-has-won {
+  min-width: 60px;
+  min-height: 60px;
+  float: right;
+  color: blueviolet;
+}
+
+.show-dashboard .bike-won-button {
+  min-width: 60px;
+  min-height: 60px;
+  float: right;
+  text-align: center;
+  padding: 0;
+}
+
+.show-dashboard .bike-won {
+  box-sizing: content-box;
+  padding: 20px;
+  border-radius: 50%;
+}
+
+.show-dashboard .race-state-waiting-to-race .bike-won {
+  background-color: #eee;
+}
+
+.show-dashboard .race-state-waiting-to-race .song-column:hover .bike-won {
+  background-color: #999;
+}
+
+.show-dashboard .race-state-waiting-to-race .song-column:active .bike-won {
+  background-color: #f1b0b7;
+}
+
+.show-dashboard .race-state-waiting-to-race td.alreadyWished.song-column,
+.show-dashboard .race-state-waiting-for-opponent td.alreadyWished.song-column {
+  background-color: rgb(255, 255, 128);
+  color: black;
+}
+
+.show-dashboard .race-state-waiting-to-race td.alreadyPlayed.song-column,
+.show-dashboard .race-state-waiting-for-opponent td.alreadyPlayed.song-column {
+  background-color: rgb(255, 206, 206);
+  color: rgb(46, 0, 0);
+}
+
+.show-dashboard td.song-column:hover,
+.show-dashboard td.alreadyWished.song-column:hover,
+.show-dashboard td.alreadyPlayed.song-column:hover {
+  background-color: #e0eeff !important;
+}

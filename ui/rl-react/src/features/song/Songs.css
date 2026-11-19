@@ -1,0 +1,13 @@
+.songs .songs-toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;
+  align-content: flex-start;
+  gap: 15px;
+}
+
+.songs .song-blocked td {
+  background-color: lightgray;
+  text-decoration: line-through;
+}

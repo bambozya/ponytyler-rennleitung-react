@@ -10,7 +10,7 @@ The first version simply provides a webapp for the so called "Rennleitung" and t
 To start, we recommend using swa cli tool locally
 https://github.com/Azure/static-web-apps-cli
 
-First, start the Frontend in `ui/rl` like this:
+First, start the Frontend in `ui/rl-react` (React) or `ui/rl` (the older Angular version) like this:
 
 ```npm run start```
 

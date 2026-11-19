@@ -1,0 +1,11 @@
+.director-dashboard table td {
+  padding: 5px;
+}
+
+.director-dashboard .winning-bike {
+  background-color: lightpink;
+}
+
+.director-dashboard .bike-won-icon {
+  border-right: 1px dotted #999;
+}

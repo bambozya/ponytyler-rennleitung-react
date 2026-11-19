@@ -1,0 +1,11 @@
+.shows .active-show {
+  background-color: #dea4f3;
+}
+
+.shows .finished-show {
+  background-color: #cccccc;
+}
+
+.shows .upcoming-show {
+  background-color: #f6e6fc;
+}
