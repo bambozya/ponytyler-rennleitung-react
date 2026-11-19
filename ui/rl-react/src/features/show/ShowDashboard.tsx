@@ -21,6 +21,7 @@ import {
   type Race,
 } from "../../api/race";
 import { deleteShow, getShow, type Show } from "../../api/show";
+import { startRaceOnTrack } from "../../api/track";
 import { isListFull } from "../../api/statistics";
 import { useLoad } from "../../hooks/useLoad";
 import { ButtonList } from "../../ui/ButtonList";
@@ -87,7 +88,7 @@ function SongCell({ race, bike, onBikeWon }: SongCellProps) {
 
   return (
     <TableCell className={classes.join(" ")}>
-      <strong>{person}</strong>
+      {person && <strong className={`rider-name rider-name-${bike === 1 ? "white" : "black"}`}>{person}</strong>}
       <br />
       {song?.artist}
       <br />
@@ -223,6 +224,16 @@ export function ShowDashboard() {
       "Marked Race as NOT over",
       "Error during Marking of the Race",
     );
+
+  /** Puts the race on the track (countdown starts on every screen showing it) and goes there. */
+  const startRace = async (race: Race) => {
+    try {
+      await startRaceOnTrack(race.id);
+      navigate("/race-track");
+    } catch (error) {
+      snackbar.error("Das Rennen konnte nicht gestartet werden", error);
+    }
+  };
 
   const moveRace = (race: Race, upOrDown: "up" | "down") =>
     run(() => moveRaceUpOrDown(race, upOrDown), `Moved Race "${upOrDown}"`, `Error Moving Race "${upOrDown}"`);
@@ -367,6 +378,18 @@ export function ShowDashboard() {
                       <SongCell race={race} bike={1} onBikeWon={bikeWon} />
                       <SongCell race={race} bike={2} onBikeWon={bikeWon} />
                       <TableCell>
+                        {waitingToRace && (
+                          <Button
+                            className="start-race-button"
+                            variant="contained"
+                            aria-label="Start the race!"
+                            onClick={() => startRace(race)}
+                            disabled={refreshing}
+                            startIcon={<Icon>play_arrow</Icon>}
+                          >
+                            <span className="start-race-label">Start the race!</span>
+                          </Button>
+                        )}
                         {waitingToRace && (
                           <IconButton
                             aria-label="Songs Beide"

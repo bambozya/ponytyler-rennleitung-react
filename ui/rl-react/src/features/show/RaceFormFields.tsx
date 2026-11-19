@@ -23,39 +23,44 @@ export function RaceFormFields({ showId, values, onChange }: RaceFormFieldsProps
 
   return (
     <>
-      <div className="form-row">
-        <TextField
-          label="White Bike Rider"
-          placeholder="i.e. Gylcan or Oman or Paul or ..."
-          value={values.person1}
-          onChange={(event) => set({ person1: event.target.value })}
-        />
-      </div>
-      <div className="form-row">
-        <SongAutocomplete
-          showId={showId}
-          label="Song for White Bike"
-          value={values.song1}
-          onChange={(song1) => set({ song1 })}
-        />
-      </div>
-      <hr />
-      <div className="form-row" style={{ marginTop: 22 }}>
-        <TextField
-          label="Black Bike Rider"
-          placeholder="i.e. Olga or Steve or ..."
-          value={values.person2}
-          onChange={(event) => set({ person2: event.target.value })}
-        />
-      </div>
-      <div className="form-row">
-        <SongAutocomplete
-          showId={showId}
-          label="Song for Black Bike"
-          value={values.song2}
-          onChange={(song2) => set({ song2 })}
-        />
-      </div>
+      <fieldset className="bike-group bike-group-white">
+        <legend>White Bike</legend>
+        <div className="form-row">
+          <TextField
+            label="White Bike Rider"
+            placeholder="i.e. Gylcan or Oman or Paul or ..."
+            value={values.person1}
+            onChange={(event) => set({ person1: event.target.value })}
+          />
+        </div>
+        <div className="form-row">
+          <SongAutocomplete
+            showId={showId}
+            label="Song for White Bike"
+            value={values.song1}
+            onChange={(song1) => set({ song1 })}
+          />
+        </div>
+      </fieldset>
+      <fieldset className="bike-group bike-group-black">
+        <legend>Black Bike</legend>
+        <div className="form-row">
+          <TextField
+            label="Black Bike Rider"
+            placeholder="i.e. Olga or Steve or ..."
+            value={values.person2}
+            onChange={(event) => set({ person2: event.target.value })}
+          />
+        </div>
+        <div className="form-row">
+          <SongAutocomplete
+            showId={showId}
+            label="Song for Black Bike"
+            value={values.song2}
+            onChange={(song2) => set({ song2 })}
+          />
+        </div>
+      </fieldset>
     </>
   );
 }

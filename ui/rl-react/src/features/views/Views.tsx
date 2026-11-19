@@ -17,7 +17,7 @@ export function Views() {
         </Link>
         <Link className="view-link" to="/race-track">
           Race Track
-          <small>Die Bahn mit den zwei Rädern, live animiert ↗</small>
+          <small>Die Bahn: wer führt, wie schnell, wer gewinnt ↗</small>
         </Link>
       </nav>
     </div>

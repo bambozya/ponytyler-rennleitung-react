@@ -31,3 +31,20 @@ Then, start the Backend in `be` like this:
 Then start swa to combine the two
 
 ```swa start http://localhost:4200 --api-location http://localhost:3000 --port 4280```
+
+## Race track and the bikes
+
+"Start the race!" on a show's race list puts that race on the race track (`/race-track`): a
+countdown, then both riders going round a 250 m track. The backend runs the race, so every screen
+that has the track open shows the same thing. Finishing the 250 m in 12 seconds is 75 km/h.
+
+The distances come from the Arduino on the rollers (sketch: `Arduino/goldsprint_v_10.ino`), read
+over USB serial. Tell the backend where it is plugged in, in `be/.env`:
+
+```
+BIKE_SERIAL_PORT=/dev/ttyUSB0
+# Which of the two counters the Arduino sends is the white bike: 0 (default) or 1.
+BIKE_WHITE_INDEX=0
+```
+
+Without `BIKE_SERIAL_PORT` the track runs on two simulated riders and says so on screen.

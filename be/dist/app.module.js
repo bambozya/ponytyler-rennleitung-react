@@ -20,6 +20,7 @@ const shifts_module_1 = require("./shifts/shifts.module");
 const user_module_1 = require("./user/user.module");
 const statistics_module_1 = require("./statistics/statistics.module");
 const backup_module_1 = require("./backup/backup.module");
+const track_module_1 = require("./track/track.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -32,6 +33,7 @@ exports.AppModule = AppModule = __decorate([
             show_module_1.ShowModule,
             shifts_module_1.ShiftsModule,
             statistics_module_1.StatisticsModule,
+            track_module_1.TrackModule,
             user_module_1.UserModule,
             cron_module_1.CronModule,
             nextcloud_module_1.NextcloudModule,

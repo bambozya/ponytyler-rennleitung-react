@@ -14,7 +14,7 @@
   position: absolute;
   top: 16px;
   left: 16px;
-  z-index: 1;
+  z-index: 2;
   padding: 6px 12px;
   border: var(--pt-border) solid var(--pt-paper);
   color: var(--pt-paper);
@@ -28,30 +28,58 @@
   color: var(--pt-ink);
 }
 
+.race-track-note {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  max-width: 50%;
+  margin: 0;
+  padding: 4px 10px;
+  background: var(--pt-orange);
+  color: var(--pt-ink);
+  font-size: 0.8rem;
+  font-weight: 700;
+  transform: rotate(1.5deg);
+}
+
+.race-track-note-problem {
+  top: 56px;
+  background: var(--pt-pink);
+}
+
 .race-track-stage {
+  position: relative;
   width: 100%;
+  max-width: 177vh; /* keeps the whole track on screen on wide, flat windows */
+}
+
+/* Everything inside the track's infield, centred over the SVG. */
+.race-track-infield {
+  position: absolute;
+  inset: 20% 22%;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  position: relative;
+  justify-content: center;
+  gap: 2.2vw;
 }
 
 .race-track-riders {
   display: flex;
-  position: absolute;
-  z-index: 1;
   justify-content: center;
   gap: 4%;
-  width: 56%;
+  width: 100%;
 }
 
 .race-track-rider {
-  flex: 0 1 44%;
+  flex: 0 1 46%;
   min-width: 0;
-  padding: 1.2vw 1.6vw 1.4vw;
+  padding: 1vw 1.4vw 1.2vw;
   border: var(--pt-border) solid var(--pt-paper);
   text-align: center;
+  transition: transform 0.3s ease;
 }
 
 .race-track-rider-white {
@@ -66,34 +94,160 @@
   transform: rotate(2deg);
 }
 
+.race-track-rider-won {
+  border-color: var(--pt-mint);
+  box-shadow: 0 0 0 6px var(--pt-mint);
+  transform: rotate(0deg) scale(1.08);
+}
+
+.race-track-bike {
+  display: block;
+  font-size: clamp(0.6rem, 1vw, 0.9rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .race-track-rider h2 {
-  margin: 0;
-  font-size: clamp(1.4rem, 4.2vw, 4rem);
+  margin: 0.15em 0 0;
+  font-size: clamp(1.2rem, 3.6vw, 3.6rem);
   line-height: 0.9;
   letter-spacing: -0.04em;
   overflow-wrap: anywhere;
 }
 
 .race-track-speed {
-  margin-top: 0.4em;
-  font-size: clamp(0.9rem, 1.8vw, 1.6rem);
+  margin-top: 0.35em;
+  font-size: clamp(0.9rem, 2vw, 1.9rem);
   font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.race-track-speed small {
+  font-size: 0.6em;
 }
 
 .race-track-cheer {
-  position: absolute;
-  bottom: 21%;
-  z-index: 1;
   margin: 0;
   padding: 4px 14px;
   background: var(--pt-mint);
   color: var(--pt-ink);
   font-family: var(--pt-display);
   font-size: clamp(0.9rem, 2.2vw, 1.8rem);
+  line-height: 1.1;
+  text-align: center;
   text-transform: uppercase;
   transform: rotate(-3deg);
 }
 
+/* The countdown is the only thing that matters while it runs. */
+.race-track-countdown .race-track-cheer {
+  padding: 0 0.35em;
+  background: var(--pt-pink);
+  font-size: clamp(3rem, 11vw, 10rem);
+  line-height: 1;
+}
+
+.race-track-finished .race-track-cheer {
+  background: var(--pt-pink);
+  font-size: clamp(1.1rem, 3vw, 2.6rem);
+}
+
+.race-track-actions {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 12px;
+  min-height: 44px;
+}
+
+.race-track-button {
+  min-height: 44px;
+  padding: 8px 18px;
+  border: var(--pt-border) solid var(--pt-pink);
+  background: var(--pt-pink);
+  color: var(--pt-ink);
+  font-family: var(--pt-display);
+  font-size: clamp(0.9rem, 1.6vw, 1.4rem);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.race-track-button:hover:not(:disabled) {
+  border-color: var(--pt-mint);
+  background: var(--pt-mint);
+}
+
+.race-track-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.race-track-button-quiet {
+  border-color: var(--pt-paper);
+  background: transparent;
+  color: var(--pt-paper);
+  font-family: var(--pt-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.race-track-button-quiet:hover:not(:disabled) {
+  border-color: var(--pt-paper);
+  background: var(--pt-paper);
+  color: var(--pt-ink);
+}
+
+/* The backend sends a new position every 100 ms; the lane glides from one to the next. */
 .race-track-lane {
-  transition: stroke-dashoffset 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: stroke-dashoffset 0.12s linear;
+}
+
+/* A fresh race starts from an empty track without rewinding the lanes. */
+.race-track-idle .race-track-lane,
+.race-track-countdown .race-track-lane {
+  transition: none;
+}
+
+/* Upright screens (phones): the infield is too small for the riders, so they go under the track. */
+@media (max-aspect-ratio: 1/1) {
+  .race-track-stage {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .race-track-infield {
+    position: static;
+    gap: 18px;
+    padding: 22px 16px 0;
+  }
+
+  .race-track-rider {
+    padding: 10px 8px 12px;
+  }
+
+  .race-track-bike {
+    font-size: 0.7rem;
+  }
+
+  .race-track-rider h2 {
+    font-size: clamp(1.3rem, 7vw, 2.4rem);
+  }
+
+  .race-track-speed {
+    font-size: clamp(1rem, 5vw, 1.6rem);
+  }
+
+  .race-track-cheer {
+    font-size: clamp(1.1rem, 5.5vw, 2rem);
+  }
+
+  .race-track-countdown .race-track-cheer {
+    font-size: clamp(4rem, 28vw, 9rem);
+  }
+
+  .race-track-note {
+    max-width: 55%;
+  }
 }

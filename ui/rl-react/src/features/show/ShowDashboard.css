@@ -258,3 +258,64 @@
     font-size: 24px;
   }
 }
+
+/* ---- Which bike is which: the rider's name sits on a tag in the colour of the bike,
+   the same way the riders are shown on the race track. ---- */
+.show-dashboard .song-column strong.rider-name {
+  display: inline-block;
+  margin-bottom: 4px;
+  padding: 2px 8px 1px;
+  border: 2px solid var(--pt-paper);
+}
+
+.show-dashboard strong.rider-name-white {
+  background: var(--pt-paper);
+  color: var(--pt-ink);
+  transform: rotate(-1deg);
+}
+
+.show-dashboard strong.rider-name-black {
+  background: var(--pt-black);
+  color: var(--pt-paper);
+  transform: rotate(1deg);
+}
+
+.show-dashboard .race-state-raced strong.rider-name,
+.show-dashboard .race-state-canceled strong.rider-name {
+  opacity: 0.55;
+}
+
+.show-dashboard .race-state-raced .winning-bike strong.rider-name {
+  border-color: var(--pt-mint);
+  opacity: 1;
+}
+
+.show-dashboard .alreadyPlayed strong.rider-name {
+  border-color: var(--pt-ink);
+}
+
+/* ---- Start the race! ---- */
+.show-dashboard .start-race-button {
+  display: flex;
+  margin-bottom: 6px;
+  font-family: var(--pt-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .show-dashboard .start-race-button {
+    min-width: 44px;
+    width: 44px;
+    padding: 0;
+  }
+
+  .show-dashboard .start-race-button .MuiButton-startIcon {
+    margin: 0;
+  }
+
+  .show-dashboard .start-race-label {
+    display: none;
+  }
+}

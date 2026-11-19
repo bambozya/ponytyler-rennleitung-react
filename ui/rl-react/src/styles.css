@@ -309,3 +309,68 @@ hr {
     transition: none !important;
   }
 }
+
+/* ---- Race form: one block per bike, in the colour of the bike (like the riders on the race track) ---- */
+.bike-group {
+  max-width: 660px;
+  margin: 0 0 22px;
+  padding: 18px 16px 2px;
+  border: var(--pt-border) solid var(--pt-paper);
+}
+
+.bike-group > legend {
+  padding: 2px 12px 1px;
+  border: var(--pt-border) solid var(--pt-paper);
+  font-family: var(--pt-display);
+  font-size: 1.1rem;
+  text-transform: uppercase;
+}
+
+.bike-group-white > legend {
+  background: var(--pt-paper);
+  color: var(--pt-ink);
+  transform: rotate(-1.5deg);
+}
+
+.bike-group-black {
+  background: var(--pt-black);
+}
+
+.bike-group-black > legend {
+  background: var(--pt-black);
+  color: var(--pt-paper);
+  transform: rotate(1.5deg);
+}
+
+/* The white bike's block is filled with paper, so its fields are dark on light. */
+.bike-group-white {
+  background: var(--pt-paper);
+}
+
+.bike-group-white .MuiInputBase-root,
+.bike-group-white .MuiInputBase-input,
+.bike-group-white .MuiSvgIcon-root {
+  color: var(--pt-ink);
+}
+
+.bike-group-white .MuiInputLabel-root {
+  color: #55524a;
+}
+
+.bike-group-white .MuiInputLabel-root.Mui-focused,
+.bike-group-white .MuiInputLabel-shrink {
+  color: var(--pt-ink);
+}
+
+.bike-group-white .MuiOutlinedInput-notchedOutline {
+  border-color: var(--pt-ink) !important;
+}
+
+.bike-group-white .Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-width: 3px;
+}
+
+.bike-group-white .MuiInputBase-input::placeholder {
+  color: #55524a;
+  opacity: 1;
+}

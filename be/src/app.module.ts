@@ -11,6 +11,7 @@ import { ShiftsModule } from "./shifts/shifts.module";
 import { UserModule } from "./user/user.module";
 import { StatisticsModule } from "./statistics/statistics.module";
 import { BackupModule } from "./backup/backup.module";
+import { TrackModule } from "./track/track.module";
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { BackupModule } from "./backup/backup.module";
     ShowModule,
     ShiftsModule,
     StatisticsModule,
+    TrackModule,
     UserModule,
     CronModule,
     NextcloudModule,
