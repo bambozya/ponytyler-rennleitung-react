@@ -102,7 +102,7 @@ function SongCell({ race, bike, onBikeWon }: SongCellProps) {
       {race.raceState === RaceState.WAITING_TO_RACE && (
         <IconButton
           className="bike-won-button"
-          aria-label={`Mark ${bike === 1 ? "black" : "white"} bike as winner`}
+          aria-label={`Mark ${bike === 1 ? "white" : "black"} bike as winner`}
           onClick={() => onBikeWon(bike, race)}
         >
           <Icon className="bike-won">sports_score</Icon>
@@ -344,8 +344,8 @@ export function ShowDashboard() {
                   <TableCell>
                     <Icon>tag</Icon>
                   </TableCell>
-                  <TableCell>Black Bike</TableCell>
                   <TableCell>White Bike</TableCell>
+                  <TableCell>Black Bike</TableCell>
                   <TableCell>Actions</TableCell>
                 </TableRow>
               </TableHead>

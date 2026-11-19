@@ -7,7 +7,7 @@ import TableRow from "@mui/material/TableRow";
 import { whichBikeWonMost } from "../../api/statistics";
 import { useLoad } from "../../hooks/useLoad";
 
-// Labels carried over unchanged from the Angular app.
+// Bike 1 (person1/song1) is the white bike, bike 2 the black one.
 const bikeWonLabels: Record<number, string> = {
   0: "Not Raced",
   1: "White Bike Won",

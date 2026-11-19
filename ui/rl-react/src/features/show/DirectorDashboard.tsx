@@ -23,11 +23,11 @@ function RaceTableHead() {
         <TableCell>
           <Icon>tag</Icon>
         </TableCell>
-        <TableCell>Rider Black Bike</TableCell>
-        <TableCell>Song Black Bike</TableCell>
-        <TableCell>-</TableCell>
         <TableCell>Rider White Bike</TableCell>
         <TableCell>Song White Bike</TableCell>
+        <TableCell>-</TableCell>
+        <TableCell>Rider Black Bike</TableCell>
+        <TableCell>Song Black Bike</TableCell>
         <TableCell>-</TableCell>
         <TableCell>Actions</TableCell>
       </TableRow>
@@ -111,7 +111,7 @@ export function DirectorDashboard() {
                       {race.song1?.name}
                     </TableCell>
                     <TableCell className="bike-won-icon">
-                      <IconButton aria-label="Mark Race as won by black Bike" onClick={() => bikeWon(1, race)}>
+                      <IconButton aria-label="Mark Race as won by white Bike" onClick={() => bikeWon(1, race)}>
                         <Icon>sports_score</Icon>
                       </IconButton>
                     </TableCell>
@@ -122,7 +122,7 @@ export function DirectorDashboard() {
                       {race.song2?.name}
                     </TableCell>
                     <TableCell className="bike-won-icon">
-                      <IconButton aria-label="Mark Race as won by white Bike" onClick={() => bikeWon(2, race)}>
+                      <IconButton aria-label="Mark Race as won by black Bike" onClick={() => bikeWon(2, race)}>
                         <Icon>sports_score</Icon>
                       </IconButton>
                     </TableCell>
@@ -155,27 +155,27 @@ export function DirectorDashboard() {
             <RaceTableHead />
             <TableBody>
               {finishedRaces.data.map((race) => {
-                const blackWon = race.bikeWon === 1 || race.bikeWon === 3;
-                const whiteWon = race.bikeWon === 2 || race.bikeWon === 3;
-                const blackClass = blackWon ? "winning-bike" : undefined;
+                const whiteWon = race.bikeWon === 1 || race.bikeWon === 3;
+                const blackWon = race.bikeWon === 2 || race.bikeWon === 3;
                 const whiteClass = whiteWon ? "winning-bike" : undefined;
+                const blackClass = blackWon ? "winning-bike" : undefined;
                 return (
                   <TableRow key={race.id}>
                     <TableCell>{race.orderNumber + 1}</TableCell>
-                    <TableCell className={blackClass}>{race.person1}</TableCell>
-                    <TableCell className={blackClass}>
+                    <TableCell className={whiteClass}>{race.person1}</TableCell>
+                    <TableCell className={whiteClass}>
                       {race.song1?.artist}
                       <br />
                       {race.song1?.name}
                     </TableCell>
-                    <TableCell className={blackClass}>{blackWon && <Icon>sports_score</Icon>}</TableCell>
-                    <TableCell className={whiteClass}>{race.person2}</TableCell>
-                    <TableCell className={whiteClass}>
+                    <TableCell className={whiteClass}>{whiteWon && <Icon>sports_score</Icon>}</TableCell>
+                    <TableCell className={blackClass}>{race.person2}</TableCell>
+                    <TableCell className={blackClass}>
                       {race.song2?.artist}
                       <br />
                       {race.song2?.name}
                     </TableCell>
-                    <TableCell className={whiteClass}>{whiteWon && <Icon>sports_score</Icon>}</TableCell>
+                    <TableCell className={blackClass}>{blackWon && <Icon>sports_score</Icon>}</TableCell>
                     <TableCell>{racedToggle(race)}</TableCell>
                   </TableRow>
                 );
